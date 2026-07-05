@@ -514,12 +514,12 @@
 /* ============ ZOEY ONLY SLIDESHOW EFFECT ============ */
 .member-photo-frame {
   width: 100%;
-  max-width: 100%; /* Ensures it doesn't blow up past the card width */
-  aspect-ratio: 1 / 1;
+  max-width: 100%;
+  aspect-ratio: 1 / 1; /* Forces the box to be a square shape */
   position: relative;
   overflow: hidden;
-  display: block; /* Behaves like a standard image element layout-wise */
-  margin-bottom: 12px; /* Adds spacing so it won't touch the "主唱" text box */
+  display: block;
+  margin-bottom: 12px;
 }
 
 .slideshow-container {
@@ -536,13 +536,14 @@
   animation: fadeSlideshow 6s infinite ease-in-out;
 }
 
-/* Fix: The first image stays relative to give the container its height */
+/* The first image sets the physical footprint of the container */
 .slide-img:nth-child(1) {
   position: relative;
+  display: block;
   animation-delay: 0s;
 }
 
-/* The 2nd and 3rd images layer perfectly on top of the first one */
+/* Image 2 layers exactly over image 1 */
 .slide-img:nth-child(2) {
   position: absolute;
   top: 0;
@@ -550,6 +551,7 @@
   animation-delay: 2s;
 }
 
+/* Image 3 layers exactly over image 1 */
 .slide-img:nth-child(3) {
   position: absolute;
   top: 0;
