@@ -519,13 +519,61 @@
     <p>两位主唱、两把电吉他、贝斯、鼓、键盘——七个人，一种默契。</p>
   </div>
   <div class="pass-grid">
+<style>
+/* ============ ZOEY ONLY SLIDESHOW EFFECT ============ */
+.zoey-slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Puts the images behind the role text box */
+}
 
+.pass-role, .pass-punch {
+  z-index: 2; /* Forces the text box and hole punch to stay layered on top */
+}
+
+.zoey-slideshow .slide-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: fadeSlideshow 6s infinite ease-in-out;
+}
+
+.zoey-slideshow .slide-img:nth-child(1) { animation-delay: 0s; }
+.zoey-slideshow .slide-img:nth-child(2) { animation-delay: 2s; }
+.zoey-slideshow .slide-img:nth-child(3) { animation-delay: 4s; }
+
+@keyframes fadeSlideshow {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  33% { opacity: 1; }
+  38% { opacity: 0; }
+  100% { opacity: 0; }
+}
+</style>
     <div class="pass">
       <div class="pass-top"></div>
       <div class="pass-photo">
         <div class="pass-role">主唱</div>
         <div class="pass-punch"></div>
-        <img src="member-zoey.jpg" alt="小仪 Zoey 演出照">
+        <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">主唱</div>
+        <div class="pass-punch"></div>
+        <!-- Zoey's Looping Images inside a slideshow container -->
+        <div class="zoey-slideshow">
+          <img src="member-zoey.jpg" alt="小仪 Zoey 演出照" class="slide-img">
+          <img src="member-zoey-2.jpg" alt="小仪 Zoey 演出照 2" class="slide-img">
+          <img src="member-zoey-3.jpg" alt="小仪 Zoey 演出照 3" class="slide-img">
+        </div>
+      </div> <!-- This closes pass-photo cleanly! -->
       </div>
       <div class="pass-body">
         <div class="pass-name">小仪 <span class="en">ZOEY</span></div>
