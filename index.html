@@ -514,9 +514,12 @@
 /* ============ ZOEY ONLY SLIDESHOW EFFECT ============ */
 .member-photo-frame {
   width: 100%;
+  max-width: 100%; /* Ensures it doesn't blow up past the card width */
   aspect-ratio: 1 / 1;
   position: relative;
   overflow: hidden;
+  display: block; /* Behaves like a standard image element layout-wise */
+  margin-bottom: 12px; /* Adds spacing so it won't touch the "主唱" text box */
 }
 
 .slideshow-container {
@@ -548,7 +551,7 @@
   100% { opacity: 0; }
 }
 </style>
-
+  
 <!-- ============ MEMBERS ============ -->
 <section class="members">
   <div class="section-head">
