@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HORIZON | English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bungee&family=Noto+Sans+SC:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0B14;
+    --panel:#15172C;
+    --panel-2:#1D2040;
+    --magenta:#FF2E7E;
+    --cyan:#23E5DB;
+    --amber:#FFB020;
+    --ink:#EDEAF6;
+    --ink-dim:#9A94B8;
+    --line: rgba(237,234,246,0.14);
+    --glass-bg: rgba(21,23,44,0.45);
+    --glass-border: rgba(255,255,255,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ink);
+    font-family:'Inter','Noto Sans SC',sans-serif;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{display:block;max-width:100%;}
+  ::selection{background:var(--magenta);color:var(--void);}
+
+  .display{font-family:'Anton','Noto Sans SC',sans-serif;letter-spacing:0.02em;}
+  .accent-num{font-family:'Bungee',sans-serif;}
+  .mono{font-family:'Space Mono',monospace;}
+
+  /* ============ TOP LANG BAR ============ */
+  .lang-bar{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 5vw;
+    backdrop-filter:blur(10px);
+    background:rgba(10,11,20,0.72);
+    border-bottom:1px solid var(--line);
+    font-family:'Space Mono',monospace;font-size:0.78rem;
+  }
+  .lang-bar .logo{
+    display:flex;align-items:center;gap:9px;font-family:'Anton',sans-serif;font-weight:400;font-size:1.1rem;letter-spacing:0.04em;
+  }
+  .lang-bar .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--magenta);box-shadow:0 0 10px 3px var(--magenta);}
+  .lang-links{display:flex;gap:16px;align-items:center;}
+  .lang-links a{color:var(--ink-dim);padding:6px 10px;border-radius:999px;border:1px solid transparent;transition:all .2s;}
+  .lang-links a:hover{color:var(--cyan);border-color:var(--glass-border);}
+  .lang-links .current{color:var(--void);background:var(--magenta);font-weight:700;padding:6px 12px;border-radius:999px;}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;padding:110px 5vw 60px;
+  }
+  .hero-sky{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,46,126,0.18), transparent 60%),
+      radial-gradient(ellipse 50% 30% at 80% 100%, rgba(35,229,219,0.15), transparent 60%),
+      linear-gradient(180deg, #0A0B14 0%, #131532 55%, #1c1440 100%);
+  }
+  .grid-floor{
+    position:absolute;bottom:0;left:0;width:100%;height:35vh;z-index:1;
+    background-image:
+      linear-gradient(rgba(35,229,219,0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(35,229,219,0.16) 1px, transparent 1px);
+    background-size:60px 40px;
+    -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    mask-image:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    transform:perspective(400px) rotateX(55deg);
+    transform-origin:bottom;
+  }
+  .hero-content{position:relative;z-index:2;max-width:900px;}
+  .eyebrow{
+    font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.3em;
+    color:var(--amber);margin-bottom:22px;display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 12vw, 8.5rem);line-height:0.95;
+    text-shadow:0 0 8px rgba(255,46,126,0.7), 0 0 26px rgba(255,46,126,0.5), 0 0 60px rgba(35,229,219,0.3);
+    animation:flicker 5s infinite;
+  }
+  .hero h1 .sub{
+    display:block;font-size:0.24em;color:var(--cyan);margin-top:18px;letter-spacing:0.1em;
+    text-shadow:0 0 8px rgba(35,229,219,0.7);font-family:'Space Mono',monospace;font-weight:700;
+  }
+  @keyframes flicker{
+    0%,19%,21%,23%,80%,100%{opacity:1;}
+    20%,22%{opacity:0.55;}
+    79%,81%{opacity:0.85;}
+  }
+  @media (prefers-reduced-motion: reduce){ .hero h1{animation:none;} }
+  .hero-tag{max-width:620px;margin:30px auto 0;color:var(--ink-dim);font-size:1.08rem;line-height:1.9;}
+  .scroll-cue{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;
+    font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.3em;color:var(--ink-dim);
+    display:flex;flex-direction:column;align-items:center;gap:10px;text-transform:uppercase;
+  }
+  .scroll-cue .bar{width:1px;height:34px;background:linear-gradient(var(--cyan), transparent);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+  /* ============ SECTION SHELL ============ */
+  section{position:relative;padding:110px 5vw;}
+  .section-head{max-width:760px;margin:0 auto 60px;text-align:center;}
+  .section-head .eyebrow{color:var(--magenta);}
+  .section-head h2{font-size:clamp(2.1rem,5vw,3.4rem);margin-top:14px;}
+  .section-head p{color:var(--ink-dim);margin-top:16px;font-size:1.02rem;line-height:1.8;}
+
+  /* ============ VIBE / ABOUT ============ */
+  .vibe{background:linear-gradient(180deg,#0A0B14,#101228 55%,#0A0B14);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .vibe-grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.15fr 0.85fr;gap:54px;align-items:center;}
+  @media (max-width:820px){.vibe-grid{grid-template-columns:1fr;}}
+  .vibe-copy p{color:#CFC9E6;line-height:2;margin-bottom:20px;font-size:1.05rem;}
+  .vibe-copy strong{color:var(--amber);font-weight:700;}
+  .vibe-quote{
+    border-left:3px solid var(--cyan);padding:18px 22px;margin:26px 0;
+    background:rgba(35,229,219,0.06);border-radius:0 10px 10px 0;
+    font-size:1.05rem;line-height:1.8;color:var(--ink);font-style:italic;
+  }
+  .amp-art{
+    aspect-ratio:1/1;border-radius:16px;
+    background:radial-gradient(circle at 30% 25%, #2a2d55, #14152b 70%);
+    border:1px solid var(--glass-border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .amp-art svg{width:62%;}
+
+  /* ============ FANS ============ */
+  .fans{background:var(--void);}
+  .fans-wrap{
+    max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  }
+  @media (max-width:820px){.fans-wrap{grid-template-columns:1fr;}}
+  .fans-copy .stat{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:18px;
+  }
+  .fans-copy .stat .num{font-family:'Bungee',sans-serif;font-size:3.4rem;color:var(--magenta);text-shadow:0 0 20px rgba(255,46,126,0.4);}
+  .fans-copy .stat .label{font-size:0.95rem;color:var(--ink-dim);line-height:1.6;}
+  .fans-copy p{color:#CFC9E6;line-height:1.9;font-size:1.02rem;margin-top:14px;}
+  .wechat-mock{
+    background:var(--panel);border:1px solid var(--glass-border);border-radius:18px;overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .wechat-head{
+    background:linear-gradient(90deg,#1D2040,#241257);padding:16px 20px;
+    display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--glass-border);
+  }
+  .wechat-head .avatar-stack{display:flex;}
+  .wechat-head .avatar-stack span{
+    width:30px;height:30px;border-radius:8px;margin-left:-10px;border:2px solid var(--panel);
+    display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:var(--void);
+  }
+  .wechat-head .title{font-weight:700;font-size:0.95rem;}
+  .wechat-head .sub{font-size:0.72rem;color:var(--ink-dim);font-family:'Space Mono',monospace;}
+  .wechat-body{padding:20px;display:flex;flex-direction:column;gap:12px;}
+  .bubble{max-width:78%;padding:10px 14px;border-radius:14px;font-size:0.88rem;line-height:1.5;}
+  .bubble.left{align-self:flex-start;background:var(--panel-2);border-bottom-left-radius:4px;}
+  .bubble.right{align-self:flex-end;background:var(--cyan);color:var(--void);border-bottom-right-radius:4px;}
+  .bubble .who{display:block;font-size:0.7rem;color:var(--ink-dim);margin-bottom:3px;font-family:'Space Mono',monospace;}
+  .bubble.right .who{color:rgba(10,11,20,0.6);}
+
+  /* ============ SHOW HISTORY — GIG WALL TIMELINE ============ */
+  .shows{background:linear-gradient(180deg,#0A0B14,#14122a);border-top:1px solid var(--line);}
+  .gig-wall{max-width:1080px;margin:0 auto;position:relative;}
+  .gig-wall::before{
+    content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg, transparent, var(--glass-border) 6%, var(--glass-border) 94%, transparent);
+    transform:translateX(-50%);
+  }
+  @media (max-width:860px){.gig-wall::before{left:26px;}}
+
+  .gig-entry{
+    position:relative;display:grid;grid-template-columns:1fr 1fr;gap:56px;
+    margin-bottom:86px;align-items:center;
+  }
+  @media (max-width:860px){
+    .gig-entry, .gig-entry.reverse{grid-template-columns:1fr;padding-left:56px;}
+  }
+  .gig-entry.reverse .gig-photo{order:2;}
+  .gig-entry.reverse .gig-info{order:1;text-align:right;}
+  @media (max-width:860px){
+    .gig-entry.reverse .gig-photo, .gig-entry.reverse .gig-info{order:initial;text-align:left;}
+  }
+
+  .gig-stamp{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:64px;height:64px;border-radius:50%;
+    background:var(--void);border:2px solid var(--amber);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bungee',sans-serif;color:var(--amber);font-size:1.3rem;z-index:3;
+    box-shadow:0 0 0 6px var(--void), 0 0 22px rgba(255,176,32,0.35);
+  }
+  @media (max-width:860px){
+    .gig-stamp{left:26px;top:0;transform:translate(-50%,0);width:52px;height:52px;font-size:1.05rem;}
+  }
+
+  .gig-photo{position:relative;}
+  .polaroid{
+    background:#f4f2ec;padding:14px 14px 46px;border-radius:4px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+    transform:rotate(var(--tilt,-3deg));
+    transition:transform .35s ease;
+    max-width:340px;
+  }
+  .gig-entry.reverse .polaroid{margin-left:auto;}
+  .polaroid:hover{transform:rotate(0deg) scale(1.02);}
+  .polaroid img{width:100%;height:240px;object-fit:cover;border-radius:2px;}
+  .polaroid .cap{
+    text-align:center;margin-top:12px;font-family:'Space Mono',monospace;font-size:0.72rem;color:#2b2b2b;letter-spacing:0.04em;
+  }
+
+  .gig-info .venue-cn{font-size:1.5rem;font-weight:400;font-family:'Anton',sans-serif;letter-spacing:0.01em;}
+  .gig-info .venue-note{font-family:'Noto Sans SC',sans-serif;font-size:0.85rem;color:var(--cyan);margin-top:8px;letter-spacing:0.02em;}
+  .gig-info .meta-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .gig-entry.reverse .gig-info .meta-row{justify-content:flex-end;}
+  @media (max-width:860px){.gig-entry.reverse .gig-info .meta-row{justify-content:flex-start;}}
+  .meta-chip{
+    font-family:'Space Mono',monospace;font-size:0.72rem;padding:6px 12px;border-radius:999px;
+    border:1px solid var(--glass-border);color:var(--ink-dim);background:rgba(255,255,255,0.03);
+  }
+  .meta-chip.hot{color:var(--amber);border-color:rgba(255,176,32,0.4);}
+  .gig-info p{color:var(--ink-dim);line-height:1.8;margin-top:16px;font-size:0.95rem;}
+
+  /* ============ MEMBERS — BACKSTAGE PASS ============ */
+  .members{background:var(--void);}
+  .pass-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  @media (max-width:1100px){.pass-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.pass-grid{grid-template-columns:1fr;}}
+
+  .pass{
+    position:relative;background:var(--panel);border-radius:16px;overflow:hidden;
+    border:1px solid var(--glass-border);
+    display:flex;flex-direction:column;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .pass:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(0,0,0,0.4);}
+  .pass-top{
+    height:8px;background:repeating-linear-gradient(90deg, var(--magenta) 0 10px, var(--cyan) 10px 20px, var(--amber) 20px 30px);
+  }
+  .pass-photo{
+    position:relative;aspect-ratio:3/3.4;overflow:hidden;background:linear-gradient(160deg,#22254a,#14152b);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .pass-photo img{width:100%;height:100%;object-fit:cover;}
+  .pass-photo svg{width:52%;opacity:0.9;}
+  .pass-role{
+    position:absolute;top:12px;left:12px;font-family:'Space Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;
+    background:rgba(10,11,20,0.6);border:1px solid var(--glass-border);padding:5px 10px;border-radius:999px;
+    color:var(--cyan);backdrop-filter:blur(6px);
+  }
+  .pass-punch{
+    position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;
+    background:var(--void);border:1px solid var(--glass-border);
+  }
+  .pass-body{padding:18px 18px 22px;flex:1;display:flex;flex-direction:column;}
+  .pass-name{font-size:1.3rem;font-family:'Anton',sans-serif;letter-spacing:0.01em;}
+  .pass-name .en{display:block;font-family:'Noto Sans SC',sans-serif;font-weight:700;font-size:0.82rem;color:var(--amber);margin-top:5px;letter-spacing:0.02em;}
+  .pass-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .pass-tags span{
+    font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.04em;
+    border:1px solid var(--glass-border);padding:3px 9px;border-radius:999px;
+  }
+  .pass-bio{margin-top:12px;font-size:0.82rem;line-height:1.7;color:var(--ink-dim);}
+  .pass-bio.long{font-size:0.78rem;line-height:1.75;}
+
+  /* ============ FOOTER ============ */
+  footer{padding:70px 5vw 40px;text-align:center;border-top:1px solid var(--line);}
+  footer .logo{display:flex;justify-content:center;align-items:center;gap:9px;font-family:'Anton',sans-serif;font-size:1.25rem;margin-bottom:18px;letter-spacing:0.02em;}
+  footer .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--magenta);box-shadow:0 0 12px 3px var(--magenta);}
+  footer p{color:var(--ink-dim);font-size:0.92rem;}
+  footer .fine{font-size:0.72rem;margin-top:26px;opacity:0.6;}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <div class="logo"><span class="dot"></span>HORIZON</div>
+  <div class="lang-links">
+    <span class="current">EN</span>
+    <a href="horizon-band-traditional.html">繁體中文</a>
+    <a href="horizon-band-simplified-cn.html">简体中文</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-sky"></div>
+  <div class="grid-floor"></div>
+  <div class="hero-content">
+    <span class="eyebrow">LIVE ROCK &amp; ROLL &middot; MADE FOR SING-ALONGS</span>
+    <h1 class="display">HORIZON<span class="sub">地平線樂隊</span></h1>
+    <p class="hero-tag">One guitar riff, one chorus &mdash; and the whole room sings along. That's Horizon's signature move.</p>
+  </div>
+  <div class="scroll-cue">Scroll<span class="bar"></span></div>
+</section>
+
+<!-- ============ VIBE / ABOUT ============ -->
+<section class="vibe">
+  <div class="section-head">
+    <span class="eyebrow mono">BAND STORY</span>
+    <h2 class="display">A Night Worth Remembering</h2>
+  </div>
+  <div class="vibe-grid">
+    <div class="vibe-copy">
+      <p>In Hong Kong's golden age of rock, there was one band almost nobody didn't know the songs of &mdash; <strong>Beyond</strong>. Horizon was built on that same live-show instinct: straightforward arrangements, honest and powerful vocals, and choruses that get total strangers throwing their hands up to sing along together.</p>
+      <div class="vibe-quote">We don't just perform on stage &mdash; we turn the whole room into one big sing-along.</div>
+      <p>Whether it's the buzzed-up energy of a late-night bar or the easy rhythm of a café on a Sunday afternoon, Horizon knows how to build that feeling bit by bit, until the night turns into a memory your guests don't want to scroll past. When Horizon plays your venue &mdash; a bar, a café, or a restaurant &mdash; what your guests remember won't just be a drink or a coffee. It'll be the moment everyone raised their hands and sang together, wishing the night wouldn't end. That's the kind of memory that brings people back.</p>
+    </div>
+    <div class="amp-art">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="30" width="140" height="140" rx="14" fill="#1D2040" stroke="#3a3d6b" stroke-width="2"/>
+        <circle cx="100" cy="90" r="42" fill="#0F1024" stroke="#FF2E7E" stroke-width="3"/>
+        <circle cx="100" cy="90" r="20" fill="#1D2040" stroke="#23E5DB" stroke-width="2"/>
+        <rect x="50" y="150" width="100" height="10" rx="4" fill="#2a2d55"/>
+        <circle cx="60" cy="155" r="3" fill="#FFB020"/>
+        <circle cx="75" cy="155" r="3" fill="#FFB020"/>
+        <circle cx="90" cy="155" r="3" fill="#FFB020"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FANS ============ -->
+<section class="fans">
+  <div class="section-head">
+    <span class="eyebrow mono">FAN COMMUNITY</span>
+    <h2 class="display">A Crowd That Never Really Leaves</h2>
+  </div>
+  <div class="fans-wrap">
+    <div class="fans-copy">
+      <div class="stat">
+        <span class="num">100</span>
+        <span class="label">fans stay active in<br>our WeChat fan group</span>
+      </div>
+      <p>The group has never gone quiet since our very first show. Fans swap playlists, talk shop about the band, and get the first sneak peek of where and when the next show is happening. To us, it isn't just an announcement channel &mdash; it feels like a circle of old friends who found each other through the same kind of live-show feeling.</p>
+    </div>
+    <div class="wechat-mock">
+      <div class="wechat-head">
+        <div class="avatar-stack">
+          <span style="background:var(--magenta);">H</span>
+          <span style="background:var(--cyan);">F</span>
+          <span style="background:var(--amber);">C</span>
+        </div>
+        <div>
+          <div class="title">Horizon Band &middot; Fan Group</div>
+          <div class="sub">~100 members &middot; Active</div>
+        </div>
+      </div>
+      <div class="wechat-body">
+        <div class="bubble left"><span class="who">Fan A</span>Where's Saturday's show? Save me a spot!</div>
+        <div class="bubble right"><span class="who">Horizon</span>El Arbol Craft Beer, Tangjiawan &mdash; 9pm. Come sing along with us~</div>
+        <div class="bubble left"><span class="who">Fan B</span>That encore last time was unreal. When's the recording dropping? 😭</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOW HISTORY ============ -->
+<section class="shows">
+  <div class="section-head">
+    <span class="eyebrow mono">SHOW HISTORY</span>
+    <h2 class="display">Every Stage We've Played</h2>
+    <p>From a New Year's countdown to late-night craft beer bars &mdash; every stop became a full-room sing-along.</p>
+  </div>
+
+  <div class="gig-wall">
+
+    <div class="gig-entry">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:-4deg;">
+          <img src="show-newyear-onsite.jpg" alt="Just Now Bar New Year countdown show, on-site photo">
+          <div class="cap">New Year's Eve &middot; Whole Room Singing</div>
+        </div>
+      </div>
+      <div class="gig-stamp">01</div>
+      <div class="gig-info">
+        <div class="venue-cn">Just Now Bar &mdash; New Year Countdown</div>
+        <div class="venue-note">今时营地 · 新年倒数演出</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 Jinwan, Zhuhai</span>
+          <span class="meta-chip hot">🔥 300+ guests</span>
+        </div>
+        <p>On countdown night, the whole crowd chanted the final seconds together &mdash; still our biggest, wildest show to date.</p>
+      </div>
+    </div>
+
+    <div class="gig-entry reverse">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:3deg;">
+          <img src="show-vinylfriend-onsite.jpg" alt="Vinyl Friend Cafe show, on-site photo">
+          <div class="cap">An Acoustic Night Among the Vinyl</div>
+        </div>
+      </div>
+      <div class="gig-stamp">02</div>
+      <div class="gig-info">
+        <div class="venue-cn">Vinyl Friend Cafe</div>
+        <div class="venue-note">胶个朋友咖啡店</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 Zhuhai</span>
+          <span class="meta-chip">🎧 30+ guests</span>
+        </div>
+        <p>Surrounded by walls of vinyl records, we swapped in a cajón and acoustic guitars for a stripped-down, intimate set.</p>
+      </div>
+      <div class="gig-photo" style="grid-column:1/-1;margin-top:-14px;">
+        <div class="polaroid" style="--tilt:-2deg;margin-left:auto;margin-right:0;">
+          <img src="show-vinylfriend-poster.jpg" alt="Vinyl Friend Cafe event poster" style="object-position:top;">
+          <div class="cap">Event Poster</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gig-entry">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:-3deg;">
+          <img src="show-ubro-onsite.jpg" alt="U!BRO Pub show, on-site photo">
+          <div class="cap">Bar Night &middot; Played Till Closing</div>
+        </div>
+      </div>
+      <div class="gig-stamp">03</div>
+      <div class="gig-info">
+        <div class="venue-cn">U!BRO Pub</div>
+        <div class="venue-note">优布劳酒吧</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 Zhuhai</span>
+          <span class="meta-chip">🍺 50+ guests</span>
+        </div>
+        <p>Craft beer and live rock is a classic pairing. The night built from a quiet set into a full-room sing-along &mdash; by the end, everyone's voice was gone.</p>
+      </div>
+      <div class="gig-photo" style="grid-column:1/-1;">
+        <div class="polaroid" style="--tilt:4deg;">
+          <img src="show-ubro-poster.jpg" alt="U!BRO Pub event poster" style="object-position:top;">
+          <div class="cap">Event Poster</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gig-entry reverse">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:2deg;">
+          <img src="show-onestepgarden-onsite.jpg" alt="One Step Garden Cafe show, on-site photo">
+          <div class="cap">A Garden Afternoon Music Party</div>
+        </div>
+      </div>
+      <div class="gig-stamp">04</div>
+      <div class="gig-info">
+        <div class="venue-cn">One Step Garden Cafe</div>
+        <div class="venue-note">一尺花园咖啡店</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 Zhuhai</span>
+          <span class="meta-chip">☕ 30+ guests</span>
+        </div>
+        <p>Half breeze, half song. On a lazy weekend afternoon in the garden, the crowd and the band sat in one big circle &mdash; relaxed and warm.</p>
+      </div>
+      <div class="gig-photo" style="grid-column:1/-1;margin-top:-14px;">
+        <div class="polaroid" style="--tilt:-3deg;margin-left:auto;margin-right:0;">
+          <img src="show-onestepgarden-poster.jpg" alt="One Step Garden music party poster" style="object-position:top;">
+          <div class="cap">Event Poster</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gig-entry">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:-4deg;">
+          <img src="show-elarbol-poster.jpg" alt="El Arbol Craft Beer Bar event poster" style="object-position:top;">
+          <div class="cap">Friday Craft Beer Night</div>
+        </div>
+      </div>
+      <div class="gig-stamp">05</div>
+      <div class="gig-info">
+        <div class="venue-cn">El Arbol Craft Beer Bar</div>
+        <div class="venue-note">树上精酿酒吧</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 Tangjiawan, Zhuhai</span>
+          <span class="meta-chip">🎸 ~25 guests</span>
+        </div>
+        <p>A small craft beer bar in old Tangjiawan town, with almost no distance between band and crowd &mdash; an intimate Friday night live set.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MEMBERS ============ -->
+<section class="members">
+  <div class="section-head">
+    <span class="eyebrow mono">ABOUT OUR BAND MEMBERS</span>
+    <h2 class="display">Meet Horizon</h2>
+    <p>Two lead vocals, two electric guitars, bass, drums, and keys &mdash; seven people, one shared instinct.</p>
+  </div>
+  <div class="pass-grid">
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Lead Vocals</div>
+        <div class="pass-punch"></div>
+        <svg viewBox="0 0 100 140" fill="none"><rect x="35" y="10" width="30" height="55" rx="15" fill="#EDEAF6"/><path d="M20 60 a30 30 0 0 0 60 0" stroke="#23E5DB" stroke-width="4" fill="none"/><line x1="50" y1="90" x2="50" y2="115" stroke="#23E5DB" stroke-width="4"/><line x1="30" y1="115" x2="70" y2="115" stroke="#23E5DB" stroke-width="4"/></svg>
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">Zoey <span class="en">小儀</span></div>
+        <div class="pass-tags"><span>Pop</span><span>Rock</span><span>Cantopop / Mandarin / English</span></div>
+        <p class="pass-bio long">Winner of her school's "Top 10 Singers" competition, 3rd place at the Zhuhai Parkson Singing Contest, and a competitor in the 3rd Jam New Voice Singer Competition, with 2 years of bar residency experience. Deep stage instincts &mdash; she reads a room and lifts the energy instantly.</p>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Lead Vocals</div>
+        <div class="pass-punch"></div>
+        <svg viewBox="0 0 100 140" fill="none"><rect x="35" y="10" width="30" height="55" rx="15" fill="#EDEAF6"/><path d="M20 60 a30 30 0 0 0 60 0" stroke="#FF2E7E" stroke-width="4" fill="none"/><line x1="50" y1="90" x2="50" y2="115" stroke="#FF2E7E" stroke-width="4"/><line x1="30" y1="115" x2="70" y2="115" stroke="#FF2E7E" stroke-width="4"/></svg>
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">Edison <span class="en">浩</span></div>
+        <div class="pass-tags"><span>Lead Vocals</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Electric Guitar</div>
+        <div class="pass-punch"></div>
+        <img src="member-masonli.jpg" alt="Mason Li performing">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">Mason Li <span class="en">李牧</span></div>
+        <div class="pass-tags"><span>Electric Guitar</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Electric Guitar</div>
+        <div class="pass-punch"></div>
+        <img src="member-ming.jpg" alt="Ming performing">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">Ming <span class="en">銘</span></div>
+        <div class="pass-tags"><span>Electric Guitar</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Bass</div>
+        <div class="pass-punch"></div>
+        <img src="member-mkyip.jpg" alt="MK Yip performing">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">MK Yip <span class="en">基哥</span></div>
+        <div class="pass-tags"><span>Bass</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Drums</div>
+        <div class="pass-punch"></div>
+        <svg viewBox="0 0 120 120" fill="none"><ellipse cx="60" cy="70" rx="45" ry="20" fill="#23E5DB" opacity="0.85"/><rect x="15" y="50" width="90" height="20" fill="#23E5DB" opacity="0.6"/><ellipse cx="60" cy="50" rx="45" ry="20" fill="#EDEAF6" opacity="0.9"/><circle cx="95" cy="20" r="16" fill="#FF2E7E" opacity="0.8"/></svg>
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">Dream <span class="en">鋒</span></div>
+        <div class="pass-tags"><span>Drums</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">Keyboard</div>
+        <div class="pass-punch"></div>
+        <img src="member-kaseng.jpg" alt="Ka Seng performing">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">Ka Seng <span class="en">木瓜</span></div>
+        <div class="pass-tags"><span>Keyboard</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="logo"><span class="dot"></span>HORIZON</div>
+  <p>Open to bookings with bars, cafés, and restaurants worldwide.</p>
+  <p class="fine">&copy; 2026 Horizon / 地平線樂隊. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
