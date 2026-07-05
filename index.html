@@ -510,6 +510,44 @@
 
   </div>
 </section>
+<style>
+/* ============ ZOEY ONLY SLIDESHOW EFFECT ============ */
+.member-photo-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: fadeSlideshow 12s infinite ease-in-out;
+}
+
+.slide-img:nth-child(1) { animation-delay: 0s; }
+.slide-img:nth-child(2) { animation-delay: 4s; }
+.slide-img:nth-child(3) { animation-delay: 8s; }
+
+@keyframes fadeSlideshow {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  33% { opacity: 1; }
+  41% { opacity: 0; }
+  100% { opacity: 0; }
+}
+</style>
 
 <!-- ============ MEMBERS ============ -->
 <section class="members">
@@ -525,7 +563,13 @@
       <div class="pass-photo">
         <div class="pass-role">主唱</div>
         <div class="pass-punch"></div>
-        <img src="member-zoey.jpg" alt="小仪 Zoey 演出照">
+<div class="member-photo-frame">
+  <div class="slideshow-container">
+    <img src="member-zoey.jpg" alt="小仪 Zoey 演出照" class="slide-img">
+    <img src="member-zoey-2.jpg" alt="小仪 Zoey 演出照 2" class="slide-img">
+    <img src="member-zoey-3.jpg" alt="小仪 Zoey 演出照 3" class="slide-img">
+  </div>
+</div>
       </div>
       <div class="pass-body">
         <div class="pass-name">小仪 <span class="en">ZOEY</span></div>
