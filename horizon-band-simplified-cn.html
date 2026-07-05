@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<!--
+  MAIN / LANDING PAGE
+  This is the page visitors should open first (rename to index.html on GitHub
+  so it loads by default). Use the language switcher in the top bar to jump to:
+    - horizon-band-traditional.html (繁體中文)
+    - horizon-band-english.html (English)
+  Those two pages link back here in the same way.
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地平线乐队 HORIZON | 简体中文</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0B14;
+    --panel:#15172C;
+    --panel-2:#1D2040;
+    --magenta:#FF2E7E;
+    --cyan:#23E5DB;
+    --amber:#FFB020;
+    --ink:#EDEAF6;
+    --ink-dim:#9A94B8;
+    --line: rgba(237,234,246,0.14);
+    --glass-bg: rgba(21,23,44,0.45);
+    --glass-border: rgba(255,255,255,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ink);
+    font-family:'Noto Sans SC',sans-serif;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{display:block;max-width:100%;}
+  ::selection{background:var(--magenta);color:var(--void);}
+
+  .display{font-family:'Noto Sans SC',sans-serif;font-weight:900;letter-spacing:0.03em;}
+  .accent-num{font-family:'Bungee',sans-serif;}
+  .mono{font-family:'Space Mono',monospace;}
+
+  /* ============ TOP LANG BAR ============ */
+  .lang-bar{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 5vw;
+    backdrop-filter:blur(10px);
+    background:rgba(10,11,20,0.72);
+    border-bottom:1px solid var(--line);
+    font-family:'Space Mono',monospace;font-size:0.78rem;
+  }
+  .lang-bar .logo{
+    display:flex;align-items:center;gap:9px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:1.05rem;
+  }
+  .lang-bar .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--magenta);box-shadow:0 0 10px 3px var(--magenta);}
+  .lang-links{display:flex;gap:16px;align-items:center;}
+  .lang-links a{color:var(--ink-dim);padding:6px 10px;border-radius:999px;border:1px solid transparent;transition:all .2s;}
+  .lang-links a:hover{color:var(--cyan);border-color:var(--glass-border);}
+  .lang-links .current{color:var(--void);background:var(--magenta);font-weight:700;padding:6px 12px;border-radius:999px;}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;padding:110px 5vw 60px;
+  }
+  .hero-sky{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,46,126,0.18), transparent 60%),
+      radial-gradient(ellipse 50% 30% at 80% 100%, rgba(35,229,219,0.15), transparent 60%),
+      linear-gradient(180deg, #0A0B14 0%, #131532 55%, #1c1440 100%);
+  }
+  .grid-floor{
+    position:absolute;bottom:0;left:0;width:100%;height:35vh;z-index:1;
+    background-image:
+      linear-gradient(rgba(35,229,219,0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(35,229,219,0.16) 1px, transparent 1px);
+    background-size:60px 40px;
+    -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    mask-image:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    transform:perspective(400px) rotateX(55deg);
+    transform-origin:bottom;
+  }
+  .hero-content{position:relative;z-index:2;max-width:900px;}
+  .eyebrow{
+    font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.3em;
+    color:var(--amber);margin-bottom:22px;display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 12vw, 8rem);line-height:1;
+    text-shadow:0 0 8px rgba(255,46,126,0.7), 0 0 26px rgba(255,46,126,0.5), 0 0 60px rgba(35,229,219,0.3);
+    animation:flicker 5s infinite;
+  }
+  .hero h1 .sub{
+    display:block;font-size:0.26em;color:var(--cyan);margin-top:16px;letter-spacing:0.08em;
+    text-shadow:0 0 8px rgba(35,229,219,0.7);font-family:'Space Mono',monospace;font-weight:700;
+  }
+  @keyframes flicker{
+    0%,19%,21%,23%,80%,100%{opacity:1;}
+    20%,22%{opacity:0.55;}
+    79%,81%{opacity:0.85;}
+  }
+  @media (prefers-reduced-motion: reduce){ .hero h1{animation:none;} }
+  .hero-tag{max-width:620px;margin:30px auto 0;color:var(--ink-dim);font-size:1.08rem;line-height:1.9;}
+  .scroll-cue{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;
+    font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.3em;color:var(--ink-dim);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-cue .bar{width:1px;height:34px;background:linear-gradient(var(--cyan), transparent);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+  /* ============ SECTION SHELL ============ */
+  section{position:relative;padding:110px 5vw;}
+  .section-head{max-width:760px;margin:0 auto 60px;text-align:center;}
+  .section-head .eyebrow{color:var(--magenta);}
+  .section-head h2{font-size:clamp(2.1rem,5vw,3.4rem);margin-top:14px;}
+  .section-head p{color:var(--ink-dim);margin-top:16px;font-size:1.02rem;line-height:1.8;}
+
+  /* ============ VIBE / ABOUT ============ */
+  .vibe{background:linear-gradient(180deg,#0A0B14,#101228 55%,#0A0B14);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .vibe-grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.15fr 0.85fr;gap:54px;align-items:center;}
+  @media (max-width:820px){.vibe-grid{grid-template-columns:1fr;}}
+  .vibe-copy p{color:#CFC9E6;line-height:2;margin-bottom:20px;font-size:1.05rem;}
+  .vibe-copy strong{color:var(--amber);font-weight:700;}
+  .vibe-quote{
+    border-left:3px solid var(--cyan);padding:18px 22px;margin:26px 0;
+    background:rgba(35,229,219,0.06);border-radius:0 10px 10px 0;
+    font-size:1.05rem;line-height:1.8;color:var(--ink);
+  }
+  .amp-art{
+    aspect-ratio:1/1;border-radius:16px;
+    background:radial-gradient(circle at 30% 25%, #2a2d55, #14152b 70%);
+    border:1px solid var(--glass-border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .amp-art svg{width:62%;}
+
+  /* ============ FANS ============ */
+  .fans{background:var(--void);}
+  .fans-wrap{
+    max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  }
+  @media (max-width:820px){.fans-wrap{grid-template-columns:1fr;}}
+  .fans-copy .stat{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:18px;
+  }
+  .fans-copy .stat .num{font-family:'Bungee',sans-serif;font-size:3.4rem;color:var(--magenta);text-shadow:0 0 20px rgba(255,46,126,0.4);}
+  .fans-copy .stat .label{font-size:0.95rem;color:var(--ink-dim);line-height:1.6;}
+  .fans-copy p{color:#CFC9E6;line-height:1.9;font-size:1.02rem;margin-top:14px;}
+  .wechat-mock{
+    background:var(--panel);border:1px solid var(--glass-border);border-radius:18px;overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .wechat-head{
+    background:linear-gradient(90deg,#1D2040,#241257);padding:16px 20px;
+    display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--glass-border);
+  }
+  .wechat-head .avatar-stack{display:flex;}
+  .wechat-head .avatar-stack span{
+    width:30px;height:30px;border-radius:8px;margin-left:-10px;border:2px solid var(--panel);
+    display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:var(--void);
+  }
+  .wechat-head .title{font-weight:700;font-size:0.95rem;}
+  .wechat-head .sub{font-size:0.72rem;color:var(--ink-dim);font-family:'Space Mono',monospace;}
+  .wechat-body{padding:20px;display:flex;flex-direction:column;gap:12px;}
+  .bubble{max-width:78%;padding:10px 14px;border-radius:14px;font-size:0.88rem;line-height:1.5;}
+  .bubble.left{align-self:flex-start;background:var(--panel-2);border-bottom-left-radius:4px;}
+  .bubble.right{align-self:flex-end;background:var(--cyan);color:var(--void);border-bottom-right-radius:4px;}
+  .bubble .who{display:block;font-size:0.7rem;color:var(--ink-dim);margin-bottom:3px;font-family:'Space Mono',monospace;}
+  .bubble.right .who{color:rgba(10,11,20,0.6);}
+
+  /* ============ SHOW HISTORY — GIG WALL TIMELINE ============ */
+  .shows{background:linear-gradient(180deg,#0A0B14,#14122a);border-top:1px solid var(--line);}
+  .gig-wall{max-width:1080px;margin:0 auto;position:relative;}
+  .gig-wall::before{
+    content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg, transparent, var(--glass-border) 6%, var(--glass-border) 94%, transparent);
+    transform:translateX(-50%);
+  }
+  @media (max-width:860px){.gig-wall::before{left:26px;}}
+
+  .gig-entry{
+    position:relative;display:grid;grid-template-columns:1fr 1fr;gap:56px;
+    margin-bottom:86px;align-items:center;
+  }
+  @media (max-width:860px){
+    .gig-entry, .gig-entry.reverse{grid-template-columns:1fr;padding-left:56px;}
+  }
+  .gig-entry.reverse .gig-photo{order:2;}
+  .gig-entry.reverse .gig-info{order:1;text-align:right;}
+  @media (max-width:860px){
+    .gig-entry.reverse .gig-photo, .gig-entry.reverse .gig-info{order:initial;text-align:left;}
+  }
+
+  .gig-stamp{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:64px;height:64px;border-radius:50%;
+    background:var(--void);border:2px solid var(--amber);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bungee',sans-serif;color:var(--amber);font-size:1.3rem;z-index:3;
+    box-shadow:0 0 0 6px var(--void), 0 0 22px rgba(255,176,32,0.35);
+  }
+  @media (max-width:860px){
+    .gig-stamp{left:26px;top:0;transform:translate(-50%,0);width:52px;height:52px;font-size:1.05rem;}
+  }
+
+  .gig-photo{position:relative;}
+  .polaroid{
+    background:#f4f2ec;padding:14px 14px 46px;border-radius:4px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+    transform:rotate(var(--tilt,-3deg));
+    transition:transform .35s ease;
+    max-width:340px;
+  }
+  .gig-entry.reverse .polaroid{margin-left:auto;}
+  .polaroid:hover{transform:rotate(0deg) scale(1.02);}
+  .polaroid img{width:100%;height:240px;object-fit:cover;border-radius:2px;}
+  .polaroid .cap{
+    text-align:center;margin-top:12px;font-family:'Space Mono',monospace;font-size:0.72rem;color:#2b2b2b;letter-spacing:0.04em;
+  }
+
+  .gig-info .venue-cn{font-size:1.65rem;font-weight:900;}
+  .gig-info .venue-note{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--cyan);margin-top:6px;letter-spacing:0.04em;}
+  .gig-info .meta-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .gig-entry.reverse .gig-info .meta-row{justify-content:flex-end;}
+  @media (max-width:860px){.gig-entry.reverse .gig-info .meta-row{justify-content:flex-start;}}
+  .meta-chip{
+    font-family:'Space Mono',monospace;font-size:0.72rem;padding:6px 12px;border-radius:999px;
+    border:1px solid var(--glass-border);color:var(--ink-dim);background:rgba(255,255,255,0.03);
+  }
+  .meta-chip.hot{color:var(--amber);border-color:rgba(255,176,32,0.4);}
+  .gig-info p{color:var(--ink-dim);line-height:1.8;margin-top:16px;font-size:0.95rem;}
+
+  /* ============ MEMBERS — BACKSTAGE PASS ============ */
+  .members{background:var(--void);}
+  .pass-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  @media (max-width:1100px){.pass-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.pass-grid{grid-template-columns:1fr;}}
+
+  .pass{
+    position:relative;background:var(--panel);border-radius:16px;overflow:hidden;
+    border:1px solid var(--glass-border);
+    display:flex;flex-direction:column;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .pass:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(0,0,0,0.4);}
+  .pass-top{
+    height:8px;background:repeating-linear-gradient(90deg, var(--magenta) 0 10px, var(--cyan) 10px 20px, var(--amber) 20px 30px);
+  }
+  .pass-photo{
+    position:relative;aspect-ratio:3/3.4;overflow:hidden;background:linear-gradient(160deg,#22254a,#14152b);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .pass-photo img{width:100%;height:100%;object-fit:cover;}
+  .pass-photo svg{width:52%;opacity:0.9;}
+  .pass-role{
+    position:absolute;top:12px;left:12px;font-family:'Space Mono',monospace;font-size:0.66rem;
+    background:rgba(10,11,20,0.6);border:1px solid var(--glass-border);padding:5px 10px;border-radius:999px;
+    color:var(--cyan);backdrop-filter:blur(6px);
+  }
+  .pass-punch{
+    position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;
+    background:var(--void);border:1px solid var(--glass-border);
+  }
+  .pass-body{padding:18px 18px 22px;flex:1;display:flex;flex-direction:column;}
+  .pass-name{font-size:1.3rem;font-weight:900;}
+  .pass-name .en{display:block;font-family:'Space Mono',monospace;font-weight:400;font-size:0.72rem;color:var(--amber);margin-top:4px;letter-spacing:0.06em;}
+  .pass-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .pass-tags span{
+    font-family:'Space Mono',monospace;font-size:0.64rem;color:var(--ink-dim);
+    border:1px solid var(--glass-border);padding:3px 9px;border-radius:999px;
+  }
+  .pass-bio{margin-top:12px;font-size:0.82rem;line-height:1.7;color:var(--ink-dim);}
+  .pass-bio.long{font-size:0.78rem;line-height:1.75;}
+
+  /* ============ FOOTER ============ */
+  footer{padding:70px 5vw 40px;text-align:center;border-top:1px solid var(--line);}
+  footer .logo{display:flex;justify-content:center;align-items:center;gap:9px;font-weight:900;font-size:1.2rem;margin-bottom:18px;}
+  footer .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--magenta);box-shadow:0 0 12px 3px var(--magenta);}
+  footer p{color:var(--ink-dim);font-size:0.92rem;}
+  footer .fine{font-size:0.72rem;margin-top:26px;opacity:0.6;}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <div class="logo"><span class="dot"></span>地平线乐队 HORIZON</div>
+  <div class="lang-links">
+    <a href="horizon-band-english.html">EN</a>
+    <a href="horizon-band-traditional.html">繁體中文</a>
+    <span class="current">简体中文</span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-sky"></div>
+  <div class="grid-floor"></div>
+  <div class="hero-content">
+    <span class="eyebrow">现场摇滚 · 一唱就全场跟着唱</span>
+    <h1 class="display">地平线<span class="sub">HORIZON LIVE BAND</span></h1>
+    <p class="hero-tag">吉他一响，副歌一起，全场跟着大合唱——这就是地平线乐队的看家本领。</p>
+  </div>
+  <div class="scroll-cue">向下滑动<span class="bar"></span></div>
+</section>
+
+<!-- ============ VIBE / ABOUT ============ -->
+<section class="vibe">
+  <div class="section-head">
+    <span class="eyebrow mono">乐队故事</span>
+    <h2 class="display">今晚，值得被记住</h2>
+  </div>
+  <div class="vibe-grid">
+    <div class="vibe-copy">
+      <p>在香港乐坛的黄金年代，有一支乐队的歌，几乎没有人不会唱——<strong>Beyond</strong>。地平线乐队正是带着这种"人人都能跟着唱"的现场感染力而生：简单直接的编曲、真挚有力的嗓音、一响副歌就能让陌生人一起举手合唱的默契。</p>
+      <div class="vibe-quote">我们不只是在台上表演，而是把整间场地变成一场所有人一起参与的大合唱。</div>
+      <p>无论是深夜酒吧里微醺的气氛，还是咖啡店周末午后的悠闲时光，地平线乐队都能把现场的情绪一点点带起来，直到那一晚变成客人舍不得划走的记忆。当地平线乐队走进你的场地——酒吧、咖啡店，或是餐厅——你的客人记住的，不会只是一杯酒或一杯咖啡，而是那晚大家一起举手合唱、意犹未尽的画面。这份记忆，会让他们愿意再回来。</p>
+    </div>
+    <div class="amp-art">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="30" width="140" height="140" rx="14" fill="#1D2040" stroke="#3a3d6b" stroke-width="2"/>
+        <circle cx="100" cy="90" r="42" fill="#0F1024" stroke="#FF2E7E" stroke-width="3"/>
+        <circle cx="100" cy="90" r="20" fill="#1D2040" stroke="#23E5DB" stroke-width="2"/>
+        <rect x="50" y="150" width="100" height="10" rx="4" fill="#2a2d55"/>
+        <circle cx="60" cy="155" r="3" fill="#FFB020"/>
+        <circle cx="75" cy="155" r="3" fill="#FFB020"/>
+        <circle cx="90" cy="155" r="3" fill="#FFB020"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FANS ============ -->
+<section class="fans">
+  <div class="section-head">
+    <span class="eyebrow mono">乐迷天地</span>
+    <h2 class="display">一群不会散场的老朋友</h2>
+  </div>
+  <div class="fans-wrap">
+    <div class="fans-copy">
+      <div class="stat">
+        <span class="num">100</span>
+        <span class="label">位乐迷，长期活跃在<br>我们的微信粉丝群里</span>
+      </div>
+      <p>从第一场演出到现在，这个群一直没有解散过。大家在里面聊音乐、聊乐队近况，互相安利歌单，也会提前在群里"剧透"下一场演出的地点和时间。对我们来说，这不只是一个通知群，更像是一群因为同一种现场感动而聚在一起的老朋友。</p>
+    </div>
+    <div class="wechat-mock">
+      <div class="wechat-head">
+        <div class="avatar-stack">
+          <span style="background:var(--magenta);">乐</span>
+          <span style="background:var(--cyan);">迷</span>
+          <span style="background:var(--amber);">群</span>
+        </div>
+        <div>
+          <div class="title">地平线乐队 · 乐迷群</div>
+          <div class="sub">约100人 · 活跃中</div>
+        </div>
+      </div>
+      <div class="wechat-body">
+        <div class="bubble left"><span class="who">乐迷 A</span>下周六的场次是在哪里呀？位置留一下！</div>
+        <div class="bubble right"><span class="who">地平线乐队</span>唐家湾树上精酿，晚上9点，记得来跟我们一起大合唱～</div>
+        <div class="bubble left"><span class="who">乐迷 B</span>上次那首安可真的封神，什么时候出录音😭</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOW HISTORY ============ -->
+<section class="shows">
+  <div class="section-head">
+    <span class="eyebrow mono">演出足迹</span>
+    <h2 class="display">走过的每一个现场</h2>
+    <p>从跨年倒数到深夜精酿吧，每一站都是一次全场大合唱。</p>
+  </div>
+
+  <div class="gig-wall">
+
+    <div class="gig-entry">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:-4deg;">
+          <img src="show-newyear-onsite.jpg" alt="今时营地新年倒数演出现场照">
+          <div class="cap">跨年夜 · 全场大合唱</div>
+        </div>
+      </div>
+      <div class="gig-stamp">01</div>
+      <div class="gig-info">
+        <div class="venue-cn">今时营地 · 新年倒数演出</div>
+        <div class="venue-note">JUST NOW BAR — NEW YEAR COUNTDOWN</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 珠海 · 金湾</span>
+          <span class="meta-chip hot">🔥 到场超过 300 人</span>
+        </div>
+        <p>跨年倒数的那一晚，全场跟着节拍一起喊出新年倒数，是我们至今人数最多、气氛最炸的一场演出。</p>
+      </div>
+    </div>
+
+    <div class="gig-entry reverse">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:3deg;">
+          <img src="show-vinylfriend-onsite.jpg" alt="胶个朋友咖啡店演出现场照">
+          <div class="cap">黑胶馆里的原声之夜</div>
+        </div>
+      </div>
+      <div class="gig-stamp">02</div>
+      <div class="gig-info">
+        <div class="venue-cn">胶个朋友咖啡店</div>
+        <div class="venue-note">VINYL FRIEND CAFE</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 珠海</span>
+          <span class="meta-chip">🎧 到场超过 30 人</span>
+        </div>
+        <p>在满墙黑胶唱片的包围下，我们换上木箱鼓与木吉他，用最原始的编制，带来一场亲密的原声音乐会。</p>
+      </div>
+      <div class="gig-photo" style="grid-column:1/-1;margin-top:-14px;">
+        <div class="polaroid" style="--tilt:-2deg;margin-left:auto;margin-right:0;">
+          <img src="show-vinylfriend-poster.jpg" alt="胶个朋友黑胶音乐馆演出海报" style="object-position:top;">
+          <div class="cap">活动海报</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gig-entry">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:-3deg;">
+          <img src="show-ubro-onsite.jpg" alt="优布劳酒吧演出现场照">
+          <div class="cap">酒吧夜场 · 嗨到打烊</div>
+        </div>
+      </div>
+      <div class="gig-stamp">03</div>
+      <div class="gig-info">
+        <div class="venue-cn">优布劳酒吧</div>
+        <div class="venue-note">U!BRO PUB</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 珠海</span>
+          <span class="meta-chip">🍺 到场超过 50 人</span>
+        </div>
+        <p>精酿配现场摇滚，是最经典的组合。这一晚从驻唱慢慢升温成全场合唱，收工时嗓子都哑了。</p>
+      </div>
+      <div class="gig-photo" style="grid-column:1/-1;">
+        <div class="polaroid" style="--tilt:4deg;">
+          <img src="show-ubro-poster.jpg" alt="优布劳酒吧演出海报" style="object-position:top;">
+          <div class="cap">活动海报</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gig-entry reverse">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:2deg;">
+          <img src="show-onestepgarden-onsite.jpg" alt="一尺花园咖啡店演出现场照">
+          <div class="cap">午后花园音乐派对</div>
+        </div>
+      </div>
+      <div class="gig-stamp">04</div>
+      <div class="gig-info">
+        <div class="venue-cn">一尺花园咖啡店</div>
+        <div class="venue-note">ONE STEP GARDEN CAFE</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 珠海</span>
+          <span class="meta-chip">☕ 到场超过 30 人</span>
+        </div>
+        <p>一半清风，一半歌声。周末午后的花园里，观众和乐队围坐一圈，气氛松弛又温暖。</p>
+      </div>
+      <div class="gig-photo" style="grid-column:1/-1;margin-top:-14px;">
+        <div class="polaroid" style="--tilt:-3deg;margin-left:auto;margin-right:0;">
+          <img src="show-onestepgarden-poster.jpg" alt="一尺花园音乐派对海报" style="object-position:top;">
+          <div class="cap">活动海报</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gig-entry">
+      <div class="gig-photo">
+        <div class="polaroid" style="--tilt:-4deg;">
+          <img src="show-elarbol-poster.jpg" alt="树上精酿酒吧演出海报" style="object-position:top;">
+          <div class="cap">周五精酿夜</div>
+        </div>
+      </div>
+      <div class="gig-stamp">05</div>
+      <div class="gig-info">
+        <div class="venue-cn">树上精酿酒吧</div>
+        <div class="venue-note">EL ARBOL CRAFT BEER BAR</div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 珠海 · 唐家湾</span>
+          <span class="meta-chip">🎸 到场约 25 人</span>
+        </div>
+        <p>唐家古镇里的小型精酿吧，观众与乐队几乎零距离，是一场亲密感拉满的周五夜live。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MEMBERS ============ -->
+<section class="members">
+  <div class="section-head">
+    <span class="eyebrow mono">关于我们的乐队成员</span>
+    <h2 class="display">认识地平线乐队</h2>
+    <p>两位主唱、两把电吉他、贝斯、鼓、键盘——七个人，一种默契。</p>
+  </div>
+  <div class="pass-grid">
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">主唱</div>
+        <div class="pass-punch"></div>
+        <svg viewBox="0 0 100 140" fill="none"><rect x="35" y="10" width="30" height="55" rx="15" fill="#EDEAF6"/><path d="M20 60 a30 30 0 0 0 60 0" stroke="#23E5DB" stroke-width="4" fill="none"/><line x1="50" y1="90" x2="50" y2="115" stroke="#23E5DB" stroke-width="4"/><line x1="30" y1="115" x2="70" y2="115" stroke="#23E5DB" stroke-width="4"/></svg>
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">小仪 <span class="en">ZOEY</span></div>
+        <div class="pass-tags"><span>流行</span><span>摇滚</span><span>港乐 / 华语 / 英文</span></div>
+        <p class="pass-bio long">学生时期校园十大歌手冠军，珠海百盛歌唱大赛季军，第三届Jam新声歌手大赛选手，拥有2年酒馆驻唱经验。舞台经验丰富，擅长控场，能第一时间带动全场气氛。</p>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">主唱</div>
+        <div class="pass-punch"></div>
+        <svg viewBox="0 0 100 140" fill="none"><rect x="35" y="10" width="30" height="55" rx="15" fill="#EDEAF6"/><path d="M20 60 a30 30 0 0 0 60 0" stroke="#FF2E7E" stroke-width="4" fill="none"/><line x1="50" y1="90" x2="50" y2="115" stroke="#FF2E7E" stroke-width="4"/><line x1="30" y1="115" x2="70" y2="115" stroke="#FF2E7E" stroke-width="4"/></svg>
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">浩 <span class="en">EDISON</span></div>
+        <div class="pass-tags"><span>主唱</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">电吉他</div>
+        <div class="pass-punch"></div>
+        <img src="member-masonli.jpg" alt="李牧 Mason Li 演出照">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">李牧 <span class="en">MASON LI</span></div>
+        <div class="pass-tags"><span>电吉他</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">电吉他</div>
+        <div class="pass-punch"></div>
+        <img src="member-ming.jpg" alt="铭 Ming 演出照">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">铭 <span class="en">MING</span></div>
+        <div class="pass-tags"><span>电吉他</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">贝斯</div>
+        <div class="pass-punch"></div>
+        <img src="member-mkyip.jpg" alt="基哥 MK Yip 演出照">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">基哥 <span class="en">MK YIP</span></div>
+        <div class="pass-tags"><span>贝斯</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">鼓手</div>
+        <div class="pass-punch"></div>
+        <svg viewBox="0 0 120 120" fill="none"><ellipse cx="60" cy="70" rx="45" ry="20" fill="#23E5DB" opacity="0.85"/><rect x="15" y="50" width="90" height="20" fill="#23E5DB" opacity="0.6"/><ellipse cx="60" cy="50" rx="45" ry="20" fill="#EDEAF6" opacity="0.9"/><circle cx="95" cy="20" r="16" fill="#FF2E7E" opacity="0.8"/></svg>
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">锋 <span class="en">DREAM</span></div>
+        <div class="pass-tags"><span>鼓手</span></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <div class="pass-top"></div>
+      <div class="pass-photo">
+        <div class="pass-role">键盘</div>
+        <div class="pass-punch"></div>
+        <img src="member-kaseng.jpg" alt="木瓜 Ka Seng 演出照">
+      </div>
+      <div class="pass-body">
+        <div class="pass-name">木瓜 <span class="en">KA SENG</span></div>
+        <div class="pass-tags"><span>键盘</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="logo"><span class="dot"></span>地平线乐队 HORIZON</div>
+  <p>欢迎各类酒吧、咖啡店、餐厅洽谈演出合作。</p>
+  <p class="fine">&copy; 2026 地平线乐队 HORIZON. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
